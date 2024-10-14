@@ -88,6 +88,7 @@ img {
 }
 
 .article-footer span {
+	color: var(--color-primary);
 	color: #8a8a8a;
 	font-size: 14px;
 	font-weight: 500;
@@ -96,6 +97,7 @@ img {
 .categories {
 	margin: 2rem auto;
 	text-align: center;
+	display: flex;
 }
 
 .btn-category {
@@ -167,3 +169,8 @@ img {
 		margin: 5px;
 	}
 }
+
+@import "./styles/footer.scss";
+@import "./styles/buttonList.scss";
+@import "./styles/modal.scss";
+@import "./styles/about.scss"

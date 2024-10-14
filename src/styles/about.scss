@@ -1,0 +1,29 @@
+.articulo {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background-color: beige;
+    color: black;
+    border-radius: 15px;
+    margin-top: 5vh;
+}
+
+.about p {
+    margin: 5vh;
+}
+
+.contact-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 40px;
+    background-color: beige;
+    color: black;
+    border-radius: 15px;
+    margin-top: 5vh;
+    align-items: center;
+    justify-items: center;
+
+    .about-image {
+        width: 50%;
+    }
+}
