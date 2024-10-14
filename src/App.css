@@ -173,4 +173,6 @@ img {
 @import "./styles/footer.scss";
 @import "./styles/buttonList.scss";
 @import "./styles/modal.scss";
-@import "./styles/about.scss"
+@import "./styles/about.scss";
+@import "./styles/links.scss";
+@import "./styles/modalButton.scss";

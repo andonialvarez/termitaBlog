@@ -1,0 +1,36 @@
+.links {
+    display: flex;
+    gap: 10vh;
+    width: 100%;
+    padding: 6vh;
+    background-color: beige;
+    transition: transform 0.3s ease; /* Añade una transición suave */
+
+}
+
+.links-inicio:hover {
+    color: blue;
+    transform: scale(1.1); /* Aumenta el tamaño en un 10% */
+}
+
+
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(1, 0, 0, 0.7); /* Para que el texto sea más visible sobre la imagen */
+  }
