@@ -24,30 +24,91 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        background-color: var(--color-secondary);
+        background-color: var(--color-primary);
         width: 60%;
         justify-content: space-around;
-        align-items: center;
+        align-items: start;
         padding: 5vh;
+        border-radius: 5vh;
+        border: 2px solid #e38356;
+
+
     }
+
     .left {
         p {
             size: 2rem;
         }
     }
 
-    
+    .left a {
+        text-decoration: none;
+        color: black;
+        font-size: 1.5rem;
+    }
+
+    .left button {
+        text-decoration: none;
+        color: black;
+        font-size: 1.5rem;
+
+    }
+
+    button:hover {
+        color: red;
+    }
+
+    .left a:hover {
+        color: red;
+    }
+
+}
+.right {
+    a {
+        font-size: 1.5rem;
+        text-decoration: none;
+        color:black;
+
+    }
+
+    a:hover {
+        color: red;
+    }
+}
+.email-button {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
 }
 
 @media (max-width: 520px) {
     .footer {
         display: flex;
+        flex-direction: column;
+
         align-items: center;
         padding: 0px 10px 0px 10px;
 
+
+
         .top {
             gap: 5vh;
-            
+            width: 110%;
+
+            display: flex;
+            flex-direction: column;
+
+            .column {
+                width: 100%;
+            }
+
+            .column button {
+                font-size: 1.2rem;
+            }
+
         }
     }
 

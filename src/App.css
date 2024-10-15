@@ -44,6 +44,7 @@ img {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 25px;
+	margin-bottom: 5vh;
 }
 
 .article-container {
@@ -121,6 +122,9 @@ img {
 	margin-right: 0;
 }
 
+h4 {
+	font-size: 2rem;
+}
 @media (max-width: 520px) {
 	.title h1 {
 		font-size: 40px;

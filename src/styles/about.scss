@@ -11,6 +11,10 @@
 .about p {
     margin: 5vh;
 }
+.articulo h3 {
+    display: flex;
+    justify-content: center;
+}
 
 .contact-links {
     display: grid;
@@ -26,4 +30,38 @@
     .about-image {
         width: 50%;
     }
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 1.5rem;
+        text-decoration: underline;
+    }
+    a:hover {
+        color: red;
+    }
+    button {
+        text-decoration: none;
+        color: black;
+        font-size: 1.5rem;
+        text-decoration: underline;
+    }
+    button:hover {
+        color:red;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        background-color: beige;
+        color: black;
+        border-radius: 15px;
+        margin-top: 5vh;
+    }
+
 }
