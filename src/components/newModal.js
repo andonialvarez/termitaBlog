@@ -1,53 +1,50 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from '../firebase'; // Configuración de Firebase
 
 const NewArticleModal = ({ showModal, setShowModal }) => {
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [titulo, setTitle] = useState("");
+  const [subtitulo, setSubtitle] = useState("");
   const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [descripcion, setDescription] = useState("");
   const [conclusion, setConclusion] = useState("");
-  const [rating, setRating] = useState("");
-  const [categories, setCategories] = useState([]); // Nuevo estado para almacenar las categorías
+  const [nota, setRating] = useState("");
+  const [categories, setCategories] = useState([]); // Estado para almacenar las categorías
 
-
-
-  // Función para obtener las categorías del backend
+  // Obtener las categorías desde Firestore
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/category");
-        console.log(response.data); // Para ver cómo son los datos
-        setCategories(response.data);
+        const querySnapshot = await getDocs(collection(db, "Categories")); // Asegúrate de que la colección existe
+        const categoriesData = querySnapshot.docs.map((doc) => doc.data()); // Obtener datos de las categorías
+        setCategories(categoriesData);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
       }
     };
-  
+
     if (showModal) {
       fetchCategories();
     }
   }, [showModal]);
-  
+
+  // Función para añadir el nuevo artículo
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newArticle = {
-      title,
-      subtitle,
+      titulo,
+      subtitulo,
       category,
-      description,
+      descripcion,
       conclusion,
-      rating: parseFloat(rating), // Convertir la calificación en un número
+      nota: parseFloat(nota),
     };
 
     try {
-      // Aquí haces la petición POST al backend
-      const response = await axios.post("http://localhost:3001/api/articles", newArticle);
-      if (response.status === 200) {
-        alert("Artículo añadido correctamente");
-        setShowModal(false); // Cierra el modal después de añadir el artículo
-      }
+      await addDoc(collection(db, "Blogs"), newArticle); // Añadir el nuevo artículo a Firestore
+      alert("Artículo añadido correctamente");
+      setShowModal(false); // Cerrar el modal
     } catch (error) {
       console.error("Error al añadir el artículo:", error);
     }
@@ -63,7 +60,7 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
               <label>Título:</label>
               <input
                 type="text"
-                value={title}
+                value={titulo}
                 onChange={(e) => setTitle(e.target.value)}
                 required
               />
@@ -71,7 +68,7 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
               <label>Subtítulo:</label>
               <input
                 type="text"
-                value={subtitle}
+                value={subtitulo}
                 onChange={(e) => setSubtitle(e.target.value)}
                 required
               />
@@ -84,15 +81,15 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
               >
                 <option value="">Selecciona una categoría</option>
                 {categories.map((cat, index) => (
-                  <option key={index} value={cat.name}> {/* Asegúrate de usar el campo correcto, en este caso 'name' */}
-                    {cat.name} {/* Muestra el nombre de la categoría */}
+                  <option key={index} value={cat.name}>
+                    {cat.name}
                   </option>
                 ))}
               </select>
 
               <label>Descripción:</label>
               <textarea
-                value={description}
+                value={descripcion}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
@@ -107,7 +104,7 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
               <label>Nota (calificación):</label>
               <input
                 type="number"
-                value={rating}
+                value={nota}
                 onChange={(e) => setRating(e.target.value)}
                 required
               />
