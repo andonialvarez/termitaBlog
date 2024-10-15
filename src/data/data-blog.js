@@ -1,4 +1,4 @@
-export const data = [
+export const data66 = [
   {
     "id": 1,
     "titulo": "Película de Acción Intensa pero la 3",
