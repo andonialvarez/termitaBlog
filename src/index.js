@@ -16,7 +16,7 @@ root.render(
 );
 
 const addTodo = async (e) => {
-  
+
 
   const docRef = doc(db, "Blogs", "filete");
   const docSnap = await getDoc(docRef);

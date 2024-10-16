@@ -12,9 +12,9 @@ export const ArticleList = ({ articles }) => {
                         <h3>{article?.category}</h3>
                         <p>{article?.subtitulo}</p>
                         <div className='article-footer'>
-                            <span>{article?.descripcion}</span>
-                            <span>{article?.conclusion}</span>
-                            <span>{article?.date}</span>
+                            <p>{article?.descripcion}</p>
+                            <p>{article?.conclusion}</p>
+                            <h3 style={{marginTop: "1vh"}}>Nota: {article?.nota}</h3>
                         </div>
                     </div>
                 </div>

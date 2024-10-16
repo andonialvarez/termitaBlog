@@ -73,7 +73,7 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
                 required
               />
 
-              <label>Categoría:</label>
+              <label style={{marginBottom: "4vh"}}>Categoría:</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
