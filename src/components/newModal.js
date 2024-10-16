@@ -1,62 +1,73 @@
+// Importamos las bibliotecas necesarias de React y Firebase
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from '../firebase'; // Configuración de Firebase
 
+// Componente que representa un modal para añadir un nuevo artículo
 const NewArticleModal = ({ showModal, setShowModal }) => {
-  const [titulo, setTitle] = useState("");
-  const [subtitulo, setSubtitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [descripcion, setDescription] = useState("");
-  const [conclusion, setConclusion] = useState("");
-  const [nota, setRating] = useState("");
-  const [categories, setCategories] = useState([]); // Estado para almacenar las categorías
+  // Definimos varios estados para gestionar los valores del formulario
+  const [titulo, setTitle] = useState(""); // Estado para el título del artículo
+  const [subtitulo, setSubtitle] = useState(""); // Estado para el subtítulo del artículo
+  const [category, setCategory] = useState(""); // Estado para la categoría seleccionada
+  const [descripcion, setDescription] = useState(""); // Estado para la descripción del artículo
+  const [conclusion, setConclusion] = useState(""); // Estado para la conclusión del artículo
+  const [nota, setRating] = useState(""); // Estado para la calificación o nota del artículo
+  const [categories, setCategories] = useState([]); // Estado para almacenar las categorías disponibles
 
-  // Obtener las categorías desde Firestore
+  // useEffect se ejecuta cuando se muestra el modal para obtener las categorías desde Firestore
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "Categories")); // Asegúrate de que la colección existe
-        const categoriesData = querySnapshot.docs.map((doc) => doc.data()); // Obtener datos de las categorías
+        // Obtenemos los documentos de la colección "Categories" desde Firebase Firestore
+        const querySnapshot = await getDocs(collection(db, "Categories"));
+        
+        // Mapeamos los datos obtenidos y los guardamos en el estado categories
+        const categoriesData = querySnapshot.docs.map((doc) => doc.data());
         setCategories(categoriesData);
       } catch (error) {
-        console.error("Error al obtener las categorías:", error);
+        console.error("Error al obtener las categorías:", error); // Manejamos cualquier error al obtener las categorías
       }
     };
 
+    // Solo llamamos a fetchCategories si el modal está visible
     if (showModal) {
       fetchCategories();
     }
-  }, [showModal]);
+  }, [showModal]); // Se ejecuta cada vez que showModal cambie
 
-  // Función para añadir el nuevo artículo
+  // Función que se ejecuta cuando se envía el formulario para añadir un nuevo artículo
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evitamos el comportamiento por defecto del formulario
 
+    // Creamos un objeto con los datos del nuevo artículo
     const newArticle = {
       titulo,
       subtitulo,
       category,
       descripcion,
       conclusion,
-      nota: parseFloat(nota),
+      nota: parseFloat(nota), // Convertimos la nota a un número flotante
     };
 
     try {
-      await addDoc(collection(db, "Blogs"), newArticle); // Añadir el nuevo artículo a Firestore
-      alert("Artículo añadido correctamente");
-      setShowModal(false); // Cerrar el modal
+      // Añadimos el nuevo artículo a la colección "Blogs" en Firestore
+      await addDoc(collection(db, "Blogs"), newArticle);
+      alert("Artículo añadido correctamente"); // Mostramos una alerta de éxito
+      setShowModal(false); // Cerramos el modal al terminar
     } catch (error) {
-      console.error("Error al añadir el artículo:", error);
+      console.error("Error al añadir el artículo:", error); // Manejamos cualquier error al añadir el artículo
     }
   };
 
+  // Renderizado del componente modal
   return (
     <>
-      {showModal && (
+      {showModal && ( // Solo mostramos el modal si showModal es verdadero
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>Añadir nuevo artículo</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}> {/* Formulario para añadir el artículo */}
+              
               <label>Título:</label>
               <input
                 type="text"
@@ -73,13 +84,14 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
                 required
               />
 
-              <label style={{marginBottom: "4vh"}}>Categoría:</label>
+              <label style={{ marginBottom: "4vh" }}>Categoría:</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
               >
                 <option value="">Selecciona una categoría</option>
+                {/* Mapeamos las categorías obtenidas de Firestore para crear las opciones del select */}
                 {categories.map((cat, index) => (
                   <option key={index} value={cat.name}>
                     {cat.name}
@@ -109,8 +121,11 @@ const NewArticleModal = ({ showModal, setShowModal }) => {
                 required
               />
 
+              {/* Botón para enviar el formulario */}
               <button type="submit" style={{ marginBottom: '1vh' }}>Añadir Artículo</button>
             </form>
+
+            {/* Botón para cerrar el modal */}
             <button onClick={() => setShowModal(false)}>Cerrar</button>
           </div>
         </div>

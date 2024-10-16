@@ -1,3 +1,7 @@
+//Este archivo se utilizaba para añadir un archivo a la base de datos SQL de Workbench, al final cambiamos de base de datos a Firestore
+
+
+
 // import React, { useState } from 'react';
 // import './Modal.css'; // Asegúrate de importar el CSS
 

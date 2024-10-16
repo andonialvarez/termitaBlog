@@ -46,7 +46,7 @@ function App() {
         } else {
             const filteredData = allArticles.filter(article => article.category === category);
             setArticles(filteredData); // Actualizar el estado con los artículos filtrados
-            setKey(prevKey => prevKey + 1); // Forzar re-render cuando se filtra por categoría
+            setKey(prevKey => prevKey + 1); // Forzar re-render cuando se filtra por categoría, igual podria hacer un componentDidUpdate para reenderizar??
         }
     };
 
